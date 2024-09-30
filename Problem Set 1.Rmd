@@ -1,0 +1,97 @@
+---
+title: "Problemset1"
+author: 'Marjuka B Afzal'
+output: pdf_document
+date: "2024-09-09"
+---
+
+
+```{r}
+install.packages("tinytex")
+library(tidyverse)
+```
+```{r}
+data1<-read.csv("C:/Users/User/Downloads/kdrama.csv")
+nrow(data1)
+```
+```{r}
+colnames(data1)
+```
+```{r}
+mean(data1$Number.of.Episodes)
+```
+```{r}
+hist(data1$Rating)
+```
+```{r}
+table(data1$Rating>9)
+```
+```{r}
+colnames(data1)[3]="Year"
+colnames(data1)
+```
+```{r}
+table(data1$Year>=2020&data1$Year<=2022)
+```
+```{r}
+class(data1$Duration)
+```
+```{r}
+minutes<-as.data.frame(str_split_fixed(
+  gsub("min.", "",gsub("1 hr.", 60,data1$Duration))," ",2)
+)
+class(minutes$V1)
+minutes$V1<-as.numeric(minutes$V1)
+class(minutes$V1)
+minutes$V2<-as.numeric(minutes$V2)
+minutes$V2[is.na(minutes$V2)== TRUE]<-0
+
+data1$minduration<-as.numeric(minutes[,1])+as.numeric(minutes[,2])
+hist(data1$minduration)
+
+```
+```{r}
+Netflix<-data1[grep("Netflix",data1$Original.Network),]
+```
+
+```{r}
+mean(Netflix$Rating)
+```
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
